@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache-cookies-deployment
+  labels:
+    app: apache-cookies
+spec:
+  selector:
+    matchLabels:
+      app: apache-cookies
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: apache-cookies
+    spec:
+      containers:
+      - name: apache-cookies
+        image: k8s.gcr.io/hpa-example
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
